@@ -1,4 +1,4 @@
-import random
+from random import choice
 from datetime import datetime
 from airflow import DAG
 from airflow.decorators import dag, task
@@ -8,8 +8,9 @@ APPLES = ["pink lady", "jazz", "orange pippin", "granny smith", "red delicious",
 
 @task
 def print_hello():
-
-    pass
+    """ Function that reads a specific file and prints it back"""
+    with open('/dags/ch6_code_review.txt') as file:
+        print(file.read())
 
 
 @dag(
@@ -18,7 +19,7 @@ def print_hello():
     catchup=False,
     default_view='graph',
     is_paused_upon_creation=True,
-    tags=['code_review', 'dsa']
+    tags=['code_review', 'dsa', 'ch6']
 )
 def ch6_code_review():
     """Placeholder"""
@@ -27,8 +28,12 @@ def ch6_code_review():
         bash_command='echo "Dylan" > /dags/ch6_code_review.txt'
     )
 
+    t2 = print_hello
+
     t3 = BashOperator(
-        task_id=''
+        task_id='',
         bash_command='echo "Picking three random apples"'
     )
+
+    
     pass
