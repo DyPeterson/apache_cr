@@ -11,10 +11,10 @@ APPLES = ["pink lady", "jazz", "orange pippin", "granny smith", "red delicious",
 def print_hello():
     """ Function that reads a specific file and prints it back"""
     with open('/opt/airflow/dags/ch6_code_review.txt', 'r') as file:
-        print(file.read())
+        print(f"Hello {file.read()}! Welcome to the logs!")
 
 def string_print(string):
-    print(f"Hello {string}! Welcome to the logs!")
+    print(f"{string}")
 
 
 @dag(
@@ -43,7 +43,7 @@ def ch6_code_review():
     )
 
     apple_tasks = []
-    for i in range(4):
+    for i in range(3):
         apple = random.choice(APPLES)
         task = PythonOperator(
             task_id= f'apple_{i}',
