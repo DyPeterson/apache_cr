@@ -6,17 +6,21 @@
 
 ###  Description
 
-A [Data Stack Academy](https://www.datastack.academy/) code review project to create a airflow DAG
+A [Data Stack Academy](https://www.datastack.academy/) code review project that makes a Apache Airflow DAG that a user can run through the Apache Airflow GUI. 
 
 ###  Technologies Used:
 
 - [Python](https://www.python.org/)
+
 - [Apache Airflow](https://airflow.apache.org/)
+
 ####  Programs used:
 
 - [Visual Code Studio](https://code.visualstudio.com/)
 
 - [Windows Terminal](https://apps.microsoft.com/store/detail/windows-terminal/9N0DX20HK701?hl=en-us&gl=US) ( Running: [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install) ([ubuntu 20.04](https://releases.ubuntu.com/20.04/)))
+
+- [Docker](https://www.docker.com/)
 
 ###  Setup & Installation:
 
@@ -46,8 +50,18 @@ A [Data Stack Academy](https://www.datastack.academy/) code review project to cr
 
 	7. Once the project has been extracted, locate the folder in a terminal and open it with `code .` .
 
-3. Download CSVs with either:
+#### Setting up Apach Airflow
 
+1. Within the terminal, make sure you are located within the projects repo. 
+2. Download docker-compose.yml within the terminal with `curl -LfO 'https://airflow.apache.org/docs/apache-airflow/stable/docker-compose.yaml'`
+3. Make directories for logs and plugins `mkdir ./logs ./plugins`
+4. Set the user id as a variable in a .env file `echo -e "AIRFLOW_UID=$(id -u)\nAIRFLOW_GID=0" > .env`
+5. Initialize Airflow `docker-compose up airflow-init`
+6. Once finished running start the container with `docker-compose up`
+7. Your Airflow is now running. You can access the GUI in your web browser at: http://localhost:8080/home. With the login being located in the docker-compose.yml here: ![displays docker-compose.yml section that has login details](img/airflow-login.png)
+8. Once login in you can see a list of your DAGs. The one for this project is labled `ch6_code_review`, to find it easier you can also search with the tags `ch6` `dsa` `code_review`. Click its name to open up to the defaulted graph view.
+9. To run this DAG click the ► button in the upper right. 
+10. After the DAG is run, you can check each individual task to see it's output. 
 
 
 ###  Useful Links
