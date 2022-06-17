@@ -10,11 +10,11 @@ APPLES = ["pink lady", "jazz", "orange pippin", "granny smith", "red delicious",
 
 def print_hello():
     """ Function that reads a specific file and prints it back"""
-    with open('/dags/ch6_code_review.txt') as file:
+    with open('/opt/airflow/dags/ch6_code_review.txt', 'r') as file:
         print(file.read())
 
 def string_print(string):
-    print(string)
+    print(f"Hello {string}! Welcome to the logs!")
 
 
 @dag(
@@ -29,7 +29,7 @@ def ch6_code_review():
     """Placeholder"""
     t1 = BashOperator(
         task_id='echo_to_file',
-        bash_command='echo "Dylan" > /dags/ch6_code_review.txt'
+        bash_command='echo "Dylan" > /opt/airflow/dags/ch6_code_review.txt'
     )
 
     t2 = PythonOperator(
