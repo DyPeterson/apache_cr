@@ -8,7 +8,6 @@ from airflow.operators.python import PythonOperator
 
 APPLES = ["pink lady", "jazz", "orange pippin", "granny smith", "red delicious", "gala", "honeycrisp", "mcintosh", "fuji"]
 
-@task
 def print_hello():
     """ Function that reads a specific file and prints it back"""
     with open('/dags/ch6_code_review.txt') as file:
@@ -33,7 +32,10 @@ def ch6_code_review():
         bash_command='echo "Dylan" > /dags/ch6_code_review.txt'
     )
 
-    t2 = print_hello
+    t2 = PythonOperator(
+        task_id="print_hello",
+        python_callable=print_hello
+    )
 
     t3 = BashOperator(
         task_id='pick_3',
@@ -46,12 +48,12 @@ def ch6_code_review():
         task = PythonOperator(
             task_id= f'apple_{i}',
             python_callable= string_print,
-            op_kwargs=apple
+            op_kwargs= {'string': apple},
         )
         apple_tasks.append(task)
     
     t7 = EmptyOperator(task_id='end_transmission')
-    
+
     t1 >> t2 >> t3 >> apple_tasks >> t7
 
 dag = ch6_code_review()
