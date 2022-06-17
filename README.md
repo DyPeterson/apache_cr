@@ -57,7 +57,8 @@ A [Data Stack Academy](https://www.datastack.academy/) code review project to cr
 [GitHub Repository](https://github.com/DyPeterson/bigquery_cr)
 
 ###  Details
-![image of ](img/dag-diagram.png)
+This Apache Airflow DAG uses BashOperator to `echo "Dylan" > /opt/airflow/dags/ch6_code_review.txt` which writes my name to a .txt file(echo_to_file). It then uses a PythonOperator to print the contents of the .txt file with a greeting(print_hello). After that it runs 3 simultaneous tasks that print a random value from a list of apples(apple_0, apple_1, apple_2). From there it's final task is an EmptyOperator which does nothing but demonstrate the end of the DAG(end_transmission)
+![image of Direct Acyclic Graph](img/dag-diagram.png)
 
 Contact me with any questions or suggestions [Here](dylan.peterson17@gmail.com)
 
