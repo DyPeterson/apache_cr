@@ -3,6 +3,7 @@ from datetime import datetime
 from airflow import DAG
 from airflow.decorators import dag, task
 from airflow.operators.bash import BashOperator
+from airflow.operators.empty import EmptyOperator
 from airflow.operators.python import PythonOperator
 
 APPLES = ["pink lady", "jazz", "orange pippin", "granny smith", "red delicious", "gala", "honeycrisp", "mcintosh", "fuji"]
@@ -35,7 +36,7 @@ def ch6_code_review():
     t2 = print_hello
 
     t3 = BashOperator(
-        task_id='',
+        task_id='pick_3',
         bash_command='echo "Picking three random apples"'
     )
 
@@ -48,4 +49,7 @@ def ch6_code_review():
         )
         apple_tasks.append(task)
     
-    pass
+    t7 = EmptyOperator(
+        task_id='end_transmission'
+    )
+    t1 >> t2 >> t3 >> apple_tasks >> t7
