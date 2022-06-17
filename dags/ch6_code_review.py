@@ -14,7 +14,7 @@ def print_hello():
     with open('/dags/ch6_code_review.txt') as file:
         print(file.read())
 
-def string_print(string:str):
+def string_print(string):
     print(string)
 
 
@@ -45,11 +45,13 @@ def ch6_code_review():
         apple = random.choice(APPLES)
         task = PythonOperator(
             task_id= f'apple_{i}',
-            python_callable= string_print(apple)
+            python_callable= string_print,
+            op_kwargs=apple
         )
         apple_tasks.append(task)
     
-    t7 = EmptyOperator(
-        task_id='end_transmission'
-    )
+    t7 = EmptyOperator(task_id='end_transmission')
+    
     t1 >> t2 >> t3 >> apple_tasks >> t7
+
+dag = ch6_code_review()
